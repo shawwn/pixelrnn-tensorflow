@@ -130,8 +130,10 @@ class PixelRNN(object):
             imgs_fake = np.reshape(imgs, (-1, *self.img_size))
 
         h_imgs, w_imgs = int(np.sqrt(imgs_fake.shape[0])), int(np.sqrt(imgs_fake.shape[0]))
-        imsave(os.path.join(save_file, '{}.png'.format(str(iter_time).zfill(3))),
-               utils._merge(imgs_fake, size=[h_imgs, w_imgs], resize_ratio=1.))
+        v_imgs = utils._merge(imgs_fake, size=[h_imgs, w_imgs], resize_ratio=1.)
+        fname = os.path.join(save_file, '{}.png'.format(str(iter_time).zfill(3)))
+        imsave(fname, v_imgs)
+        print('Saved', fname)
 
     def diagonal_bilstm(self, inputs, name='diagonal_bilstm'):
         with tf.variable_scope(name):

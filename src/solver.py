@@ -98,24 +98,32 @@ class Solver(object):
             else:
                 logger.info(' [!] Load failed...\n')
 
+        train_per_epoch = self.dataset.train_step_per_epoch
+        train_per_epoch //= 10
         for self.iter_epoch in range(self.flags.epochs):
-            for iter_batch in range(self.dataset.train_step_per_epoch):
+            print('iter_epoch', self.iter_epoch, self.flags.epochs)
+            for iter_batch in range(train_per_epoch):
+                print('train_step_per_epoch', iter_batch, train_per_epoch)
                 # next batch
                 batch_imgs, batch_labels = self.dataset.train_next_batch()
 
                 # train_step
                 loss, summary = self.model.train_step(batch_imgs)
-                self.model.print_info(loss, iter_batch, self.iter_epoch, self.dataset.train_step_per_epoch)
-                self.writer.add_summary(summary, self.iter_epoch * self.dataset.train_step_per_epoch + iter_batch)
+                self.model.print_info(loss, iter_batch, self.iter_epoch, train_per_epoch)
+                self.writer.add_summary(summary, self.iter_epoch * train_per_epoch + iter_batch)
                 self.writer.flush()
 
             # samppling images and save them
+            print('sampling images...', self.iter_epoch, self.sample_out_dir)
             self.sample(self.iter_epoch, self.sample_out_dir)
 
             # save model
+            print('saving model...', self.iter_epoch)
             self.save_model(self.iter_epoch)
+            print('done!')
 
         # last save
+        print('last save...', self.flags.epochs)
         self.save_model(self.flags.epochs)
 
     def test(self):

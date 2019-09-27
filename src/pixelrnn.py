@@ -122,7 +122,7 @@ class PixelRNN(object):
 
             utils.print_metrics(iter_batch, ord_output)
 
-    def plots(self, imgs, iter_time, save_file):
+    def plots(self, imgs, iter_time, save_file, label=''):
         # reshape image from vector to (N, H, W, C)
         if self.img_size[2] == 1:
             imgs_fake = np.reshape(imgs, (-1, self.img_size[0], self.img_size[1]))
@@ -131,7 +131,7 @@ class PixelRNN(object):
 
         h_imgs, w_imgs = int(np.sqrt(imgs_fake.shape[0])), int(np.sqrt(imgs_fake.shape[0]))
         v_imgs = utils._merge(imgs_fake, size=[h_imgs, w_imgs], resize_ratio=1.)
-        fname = os.path.join(save_file, '{}.png'.format(str(iter_time).zfill(3)))
+        fname = os.path.join(save_file, '{}{}.png'.format(str(iter_time).zfill(3), label))
         imsave(fname, v_imgs)
         print('Saved', fname)
 

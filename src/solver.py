@@ -106,6 +106,8 @@ class Solver(object):
                 print('train_step_per_epoch', iter_batch, train_per_epoch)
                 # next batch
                 batch_imgs, batch_labels = self.dataset.train_next_batch()
+                self.batch_imgs = batch_imgs
+                self.batch_labels = batch_labels
 
                 # train_step
                 loss, summary = self.model.train_step(batch_imgs)
@@ -141,7 +143,8 @@ class Solver(object):
 
     def sample(self, iter_epoch, save_folder):
         samples = self.model.sample_imgs()
-        self.model.plots(samples, iter_epoch, save_folder)
+        self.model.plots(samples, iter_epoch, save_folder, label='_sample')
+        self.model.plots(self.batch_imgs, iter_epoch, save_folder, label='_train')
 
     def save_model(self, iter_epoch):
         if np.mod(iter_epoch, self.flags.save_freq) == 0:

@@ -99,7 +99,7 @@ class Solver(object):
                 logger.info(' [!] Load failed...\n')
 
         train_per_epoch = self.dataset.train_step_per_epoch
-        train_per_epoch //= 10
+        #train_per_epoch //= 10
         for self.iter_epoch in range(self.flags.epochs):
             print('iter_epoch', self.iter_epoch, self.flags.epochs)
             for iter_batch in range(train_per_epoch):

@@ -20,7 +20,7 @@ tf.flags.DEFINE_float('learning_rate', 1e-3, 'initial learning rate for RMSProp,
 tf.flags.DEFINE_integer('epochs', 400, 'number of epochs, default: 400')
 tf.flags.DEFINE_integer('print_freq', 10, 'pring frequencey for loss, default: 100')
 tf.flags.DEFINE_integer('save_freq', 5, 'model saving frequencey, default: 5')
-tf.flags.DEFINE_integer('sample_batch', 100, 'sample batch size, default: 100')
+tf.flags.DEFINE_integer('sample_batch', 4, 'sample batch size, default: 4')
 tf.flags.DEFINE_string('load_model', None, 'folder of saved model that you wish to continue training '
                                            '(e.g. 20181130-0008), default: None')
 
